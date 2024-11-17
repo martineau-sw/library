@@ -35,8 +35,15 @@ Library project as part of The Odin Project curriculum
 #### Todo
 
 - [x] Create a design  ![[design-reference-draft.png]]
+- [ ] Gather assets
+  - [ ] Icons from pic (by purpose)
+    - [ ] Logo
+    - [ ] Read
+    - [ ] Not Read
+    - [ ] Trash
+  - [ ] Roboto font
 
-- [ ] Create `script.js`
+- [x] Create `script.js`
 	- [ ] Add book constructor and book array
 	- [ ] Add function to add book to array
 	- [ ] Create book DOM node
@@ -45,8 +52,8 @@ Library project as part of The Odin Project curriculum
 	- [ ] Research and decide on method to process user input
 		- [ ] Potential approach: form, figure out how to accept form without HTTP
 		- [ ] Potential approach: modal, similar to form
-- [ ] Create `index.html`
-	- [ ] Add HTML boilerplate, link stylesheet and script
+- [x] Create `index.html`
+	- [x] Add HTML boilerplate, link stylesheet and script
 	- [ ] Add "Add Book" button
 		- [ ] Add form for user input
 			- [ ] Add author text field
@@ -58,7 +65,7 @@ Library project as part of The Odin Project curriculum
 		- [ ] Container for book DOM nodes
 			- [ ] Add "Toggle Read" action
 			- [ ] Add "Remove book" action
-- [ ] Create `style.css`
-	- [ ] Add boilerplate / resets
+- [x] Create `style.css`
+	- [x] Add boilerplate / resets
 	- [ ] Add broad-strokes styling
 	- [ ] Refine styles
