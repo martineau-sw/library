@@ -1,3 +1,12 @@
+
+const bookTemplate = getBookTemplateElement();
+const blankTemplate = getBlankTemplateElement();
+const getBooksElement = getBooksElement();
+
+const myLibrary = [];
+
+const mockBook = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
+
 function Book(bookTitle, bookAuthor, numberOfPages, hasRead) {
   this.title = bookTitle;
   this.author = bookAuthor;
@@ -19,4 +28,16 @@ function toggleRead(book) {
 
 function setRead(hasRead) {
   book.read = hasRead;
+}
+
+function getBookTemplateElement() {
+  return document.querySelector('#book-template');
+}
+
+function getBlankTemplateElement() {
+  return document.querySelector('#blank-template');
+}
+
+function getBooksElement() {
+  return document.querySelector('#books');
 }
