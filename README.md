@@ -49,6 +49,8 @@ Library project as part of The Odin Project curriculum
 - [x] Create `script.js`
 	- [ ] Add book constructor and book array
 	- [ ] Add function to add book to array
+	- [ ] Add function to remove book
+	- [ ] Add function to toggle read
 	- [ ] Create book DOM node
 		- [ ] Potential approach: template in HTML, store in JS,  remove from DOM, append to DOM on function call
 		- [ ] Potential approach: structure using document methods, wrap as object, append to DOM on function call
@@ -57,17 +59,17 @@ Library project as part of The Odin Project curriculum
 		- [ ] Potential approach: modal, similar to form
 - [x] Create `index.html`
 	- [x] Add HTML boilerplate, link stylesheet and script
-	- [ ] Add "Add Book" button
+	- [x] Add "Add Book" button
 		- [ ] Add form for user input
 			- [ ] Add author text field
 			- [ ] Add title text field
 			- [ ] Add number of pages integer field
 			- [ ] Add read checkbox
 			- [ ] Add submit button
-	- [ ] Structure HTML for DOM manipulation
-		- [ ] Container for book DOM nodes
-			- [ ] Add "Toggle Read" action
-			- [ ] Add "Remove book" action
+	- [x] Structure HTML for DOM manipulation
+		- [x] Container for book DOM nodes
+			- [x] Add "Toggle Read" action
+			- [x] Add "Remove book" action
 - [x] Create `style.css`
 	- [x] Add boilerplate / resets
 	- [ ] Add broad-strokes styling
