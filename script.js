@@ -1,7 +1,7 @@
 
 const bookTemplate = getBookTemplateElement();
 const blankTemplate = getBlankTemplateElement();
-const getBooksElement = getBooksElement();
+const booksContainer = getBooksElement();
 
 const myLibrary = [];
 
