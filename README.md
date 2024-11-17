@@ -34,14 +34,17 @@ Library project as part of The Odin Project curriculum
 
 #### Todo
 
-- [x] Create a design  ![[design-reference-draft.png]]
-- [ ] Gather assets
-  - [ ] Icons from pic (by purpose)
-    - [ ] Logo
-    - [ ] Read
-    - [ ] Not Read
-    - [ ] Trash
-  - [ ] Roboto font
+- [x] Create a design  ![[./resources/images/design-reference-draft.png]]
+- [x] Gather assets
+  - [x] Icons from pic (by purpose)
+    - [x] Logo
+    - [x] Trash
+    - [x] Author
+    - [x] Title
+    - [x] Number of pages
+    - [x] Read / unread
+    - [x] Add / remove book
+  - [x] Roboto font
 
 - [x] Create `script.js`
 	- [ ] Add book constructor and book array
