@@ -34,7 +34,7 @@ Library project as part of The Odin Project curriculum
 
 #### Todo
 
-- [x] Create a design  ![[./resources/images/design-reference-draft.png]]
+- [x] Create a design  ![design reference draft](./resources/images/design-reference-draft.png)
 - [x] Gather assets
   - [x] Icons from pic (by purpose)
     - [x] Logo
@@ -69,5 +69,5 @@ Library project as part of The Odin Project curriculum
 			- [x] Add "Remove book" action
 - [x] Create `style.css`
 	- [x] Add boilerplate / resets
-	- [ ] Add broad-strokes styling
-	- [ ] Refine styles
+	- [x] Add broad-strokes styling
+	- [x] Refine styles
