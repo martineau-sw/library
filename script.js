@@ -1,19 +1,11 @@
 
-const bookTemplateElement = cloneBookTemplateElement();
-const blankTemplateElement = cloneBlankTemplateElement();
-const libraryElement = selectLibraryElement();
-const ICON_PATH = './resources/icons';
-const read_icons = {
-  read: `${ICON_PATH}/book-open-page-variant.svg`,
-  unread: `${ICON_PATH}/book.svg`
-};
-
+const bookTemplate = initBookTemplate();
+const formTemplate = initFormTemplate();
+const libraryTemplate = initLibraryTemplate();
 const library = [];
-
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 
-addBookToLibrary(theHobbit);
-updateLibraryElement();
+addBookAndUpdate(theHobbit);
 
 function Book(bookTitle, bookAuthor, numberOfPages, hasRead) {
   this.title = bookTitle;
@@ -22,32 +14,48 @@ function Book(bookTitle, bookAuthor, numberOfPages, hasRead) {
   this.read = hasRead;
 }
 
-function cloneBookTemplateElement() {
-  return document.querySelector('#book-template').cloneNode(true);
+function initBookTemplate() {
+  const template = document.querySelector('#book-template').cloneNode(true);
+  template.removeAttribute('id');
+  template.querySelector('button').addEventListener('click', e => {
+    const selectedBook = createBookFromElement(e.target.closest('.book.data'));
+    removeBookAndUpdate(selectedBook);
+  });
+  return template;
 }
 
-function cloneBlankTemplateElement() {
-  return document.querySelector('#blank-template').cloneNode(true);
+function initFormTemplate() {
+  const template = document.querySelector('#blank-template').cloneNode(true);
+  template.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    addBookAndUpdate(createBookFromForm());
+    e.target.reset();
+  });
+  return template;
 }
 
-function selectLibraryElement() {
-  return document.querySelector('#library');
+function initLibraryTemplate() {
+  const template = document.querySelector('#library').cloneNode(true);
+  clearChildren(template);
+  return template;
+}
+
+function getLibraryTemplate() {
+  return libraryTemplate;
+}
+
+function getBookTemplate() {
+  return bookTemplate;
+}
+
+function getFormTemplate() {
+  return formTemplate;
 }
 
 function getLibrary() {
   return library;
-}
-
-function getLibraryElement() {
-  return libraryElement;
-}
-
-function getBookTemplateElement() {
-  return bookTemplateElement;
-}
-
-function getBlankTemplateElement() {
-  return blankTemplateElement;
 }
 
 function addBookToLibrary(book) {
@@ -61,72 +69,63 @@ function removeBookFromLibrary(book) {
 
 function addBookAndUpdate(book) {
   addBookToLibrary(book);
-  updateLibraryElement();
+  replaceLiveLibrary();
 }
 
 function removeBookAndUpdate(book) {
   removeBookFromLibrary(book);
-  updateLibraryElement();
+  replaceLiveLibrary();
 }
 
-function createElementFromBook(book) {
-  const bookNode = getBookTemplateElement().cloneNode(true);
-  bookNode.removeAttribute('id');
-  bookNode.querySelector('.title').textContent = book.title;
-  bookNode.querySelector('.author').textContent = book.author;
-  bookNode.querySelector('.pages').textContent = book.pages;
-  bookNode.querySelector('.read').setAttribute('value', book.read);
+function createBookFromForm() {
+  const title = document.getElementById('input-title').value;
+  const author = document.getElementById('input-author').value;
+  const pages = document.getElementById('input-pages').value;
+  const read = document.getElementById('input-read').checked;
 
-  return bookNode;
+  return new Book(title, author, pages, read);
+}
+
+function buildBookElement(book) {
+  const template = getBookTemplate().cloneNode(true);
+  template.querySelector('.title.container .data').textContent = book.title;
+  template.querySelector('.author.container .data').textContent = book.author;
+  template.querySelector('.pages.container .data').textContent = book.pages;
+  if (book.read) template.querySelector('.read.container .data').setAttribute('checked', '');
+
+  return template;
 }
 
 function createBookFromElement(bookElement) {
-  console.log(bookElement);
   return new Book(
-    bookElement.querySelector('.title').textContent,
-    bookElement.querySelector('.author').textContent,
-    bookElement.querySelector('.pages').textContent,
-    bookElement.querySelector('.read').getAttribute('value'));
+    bookElement.querySelector('.title.container .data').textContent,
+    bookElement.querySelector('.author.container .data').textContent,
+    bookElement.querySelector('.pages.container .data').textContent,
+    bookElement.querySelector('.read.container .data').hasAttribute('checked'));
 }
 
 function clearChildren(element) {
-  while (element.firstChild && element.firstChild !== getBlankTemplateElement()) {
+  while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
 }
 
-function updateLibraryElement() {
+function buildLibraryElement() {
+  const template = getLibraryTemplate().cloneNode(true);
   const library = getLibrary();
-  const libraryElement = getLibraryElement();
-  clearChildren(libraryElement);
+
   library.forEach(book => {
-    const bookElement = createElementFromBook(book);
-    attachRemoveBookToButton(bookElement);
-    libraryElement.appendChild(bookElement);
+    const bookElement = buildBookElement(book);
+    template.appendChild(bookElement);
   });
-  libraryElement.appendChild(getBlankTemplateElement());
-  attachGetFormOnSubmit();
 
+  template.appendChild(getFormTemplate());
+
+  return template;
 }
 
-function attachRemoveBookToButton(bookElement) {
-  bookElement.querySelector('.remove').addEventListener('click', event => {
-    removeBookAndUpdate(createBookFromElement(event.target.parentNode.parentNode));
-  });
+function replaceLiveLibrary() {
+  const library = document.getElementById('library');
+  library.replaceWith(buildLibraryElement());
 }
 
-function attachGetFormOnSubmit() {
-  const form = document.querySelector('form');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    const newBook = new Book(
-        document.getElementById('input-title').value,
-        document.getElementById('input-author').value,
-        document.getElementById('input-pages').value,
-        !document.getElementById('input-read').value
-    );
-    form.reset();
-    addBookAndUpdate(newBook);
-  });
-}

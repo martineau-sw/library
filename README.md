@@ -52,20 +52,17 @@ Library project as part of The Odin Project curriculum
 	- [x] Add function to remove book
 	- [x] Add function to toggle read
 	- [x] Create book DOM node
-		- [x] Potential approach: template in HTML, store in JS,  remove from DOM, append to DOM on function call
-		- [ ] Potential approach: structure using document methods, wrap as object, append to DOM on function call
-	- [ ] Research and decide on method to process user input
-		- [ ] Potential approach: form, figure out how to accept form without HTTP
-		- [ ] Potential approach: modal, similar to form
+	- [x] Template elements to dynamically append to DOM
+	- [x] Add form
 - [x] Create `index.html`
 	- [x] Add HTML boilerplate, link stylesheet and script
 	- [x] Add "Add Book" button
-		- [ ] Add form for user input
-			- [ ] Add author text field
-			- [ ] Add title text field
-			- [ ] Add number of pages integer field
-			- [ ] Add read checkbox
-			- [ ] Add submit button
+		- [x] Add form for user input
+			- [x] Add author text field
+			- [x] Add title text field
+			- [x] Add number of pages integer field
+			- [x] Add read checkbox
+			- [x] Add submit button
 	- [x] Structure HTML for DOM manipulation
 		- [x] Container for book DOM nodes
 			- [x] Add "Toggle Read" action
