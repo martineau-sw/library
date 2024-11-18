@@ -70,4 +70,8 @@ Library project as part of The Odin Project curriculum
 - [x] Create `style.css`
 	- [x] Add boilerplate / resets
 	- [x] Add broad-strokes styling
+<<<<<<< HEAD
 	- [x] Refine styles
+=======
+	- [x] Refine styles
+>>>>>>> f52eeaca03136207d3465b240c1d5de4c8f66fe1
