@@ -9,11 +9,11 @@
   --dark-color: rgb(40 44 48);
   --red: rgb(255 100 128);
   --green: rgb(100 255 128);
+  
 }
 
 body {
-  display: grid;
-  height: 100vh;
+  position: relative;
   grid-template-rows: 2fr 10fr 1fr;
   color: var(--light-color);
   background-color: var(--dark-color);
@@ -43,9 +43,11 @@ button {
 }
 
 #background{
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
   z-index: -1;
 }
 
@@ -59,29 +61,31 @@ button {
 }
 
 #header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 2rem;
-  filter: drop-shadow(.25em 0.25em 0.25em rgb(0 0 0 / 0.5));
-
+  filter: drop-shadow(0 0.125em 0.0625em rgb(0 0 0 / 0.5));
+  position: sticky;
+  margin: 5rem 0;
+  top: 2rem;
+  justify-items: center;
+  text-align: center;
+  z-index: 2;
 }
 
 #footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--tone-0);
+  display: block;
+  text-align: center;
+  color: rgb(--light-color);
+  margin: 3rem 0;
   font-weight: 300;
-  box-shadow: rgb(0 0 0 / 0.5);
-  filter: drop-shadow(.25em 0.25em 0.25em rgb(0 0 0 / 0.5));
-
+  filter: drop-shadow(0.0625em 0.0625em 0.0625em rgb(0 0 0 / 0.5));
+  position: sticky;
+  top: 30rem;
+  bottom: 1.2rem;
 }
 
 h1, h2, h3, h4 {
   font-size: 1em;
   text-transform: uppercase;
-  
 }
 
 #banner {
@@ -98,10 +102,11 @@ h1, h2, h3, h4 {
 
 #library {
   display: grid;
+  overflow: scroll;
   grid-template-columns: repeat(4, minmax(200px, 1fr));
-  grid-template-rows: repeat(2, minmax(200px, 1fr));
+  grid-auto-rows: 25em;
   gap: 5vw;
-  padding: 0 5vw;
+  padding: 1.2vh 10vw 1.2vh 10vw;
 }
 
 .book {
@@ -113,22 +118,43 @@ h1, h2, h3, h4 {
   background-color: var(--light-color);
   padding: 1rem;
   border-radius: 0.25rem;
-  box-shadow: 
-  0.25rem 0.25rem rgb(100 104 108 / 1),
-  0.5rem 0.5rem rgb(100 104 108 / 1),
-  0.75rem 0.75rem rgb(100 104 108 / 1),
-  0.85rem 0.85rem 0.5rem rgb(0 0 0 / 0.5);
+  gap: 1rem;
 }
 
-.book:hover {
-  transition: all 100ms ease;
-  translate: -0.1rem -0.1rem;
-  box-shadow: 
-  0.25rem 0.25rem rgb(100 104 108 / 1),
-  0.5rem 0.5rem rgb(100 104 108 / 1),
-  0.75rem 0.75rem rgb(100 104 108 / 1),
-  0.95rem 0.95rem 0.6rem rgb(0 0 0 / 0.5);
+.book > * {
+  transition: all 200ms ease;
+}
 
+
+.book:nth-child(4n + 1) {
+  border-right: 0.75rem solid rgb(100 104 108 / 1);
+}
+
+.book:nth-child(4n + 2) {
+  border-right: 0.325rem solid rgb(100 104 108 / 1);
+}
+
+.book:nth-child(4n + 3) {
+  border-left: 0.325rem solid rgb(100 104 108 / 1);
+
+}
+
+.book:nth-child(4n + 4) {
+  border-left: 0.75rem solid rgb(100 104 108 / 1);
+}
+
+
+.book:focus,
+.book:hover {
+  border: 0 solid transparent;
+  scale: 1.025;
+}
+
+.book:hover h2,
+.book:hover h3 {
+  text-overflow: unset;
+  white-space:initial;
+  overflow:visible;
 }
 
 button {
@@ -189,43 +215,54 @@ input {
 
 .container svg,
 button svg {
-  transition: all 200ms ease-out;
+  transition: fill 200ms ease-out;
   fill: var(--tone-0) !important;
 }
 
-input:focus + svg,
-input:hover + svg,
-button:focus svg,
-button:hover svg {
-  outline: none;
-  transition: all 100ms ease-in;
-  fill: var(--dark-color) !important;
+.book {
+  overflow: hidden;
+}
+
+.title.container,
+.author.container {
+  justify-self: left;
+  max-width: 100%;
+}
+
+.title.container {
+  align-self: end;
+}
+
+.author.container {
+  align-self: start;
 }
 
 input,
 h2,
 h3 {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 15ch;
+  max-width: 100%;
 }
 
 p {
+  transition: all 100ms ease-in;
   color: var(--tone-0);
 }
 
-input:focus {
+
+
+button {
+  outline: none;
+}
+
+input.data:focus {
   outline: none;  
   caret-color: var(--tone-0);
-  caret-shape: block;
 }
 
 input[type="text"] {
   text-transform: uppercase;
   text-align: center;
   appearance: none;
-  /* font-weight: 550; */
 }
 
 input[type="number"] {
@@ -239,30 +276,7 @@ input[type="checkbox"] {
   opacity: 0;
 }
 
-input[type="checkbox"] ~ svg {
-  transition: all 200ms ease-in-out;
-  fill: var(--tone-0);
-}
 
-label:hover input[type="checkbox"] ~ svg {
-  transition: all 100ms ease-in;
-  fill: var(--dark-color);
-}
-
-label:hover input[type="checkbox"]:checked ~ svg {
-  transition: all 100ms ease-in;
-  fill: var(--dark-color);
-}
-
-input[type="checkbox"]:active ~ svg {
-  transition: scale 100ms ease-in;
-  scale: 1 0;
-}
-
-input[type="checkbox"]:checked:active ~ svg {
-  transition: scale 100ms ease-in;
-  scale: 0 1;
-}
 
 input[type="checkbox"] ~ svg > path {
   d: path("M18,22A2,2 0 0,0 20,20V4C20,2.89 19.1,2 18,2H12V9L9.5,7.5L7,9V2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18Z");
@@ -272,5 +286,62 @@ input[type="checkbox"]:checked ~ svg > path {
   d: path("M19 2L14 6.5V17.5L19 13V2M6.5 5C4.55 5 2.45 5.4 1 6.5V21.16C1 21.41 1.25 21.66 1.5 21.66C1.6 21.66 1.65 21.59 1.75 21.59C3.1 20.94 5.05 20.5 6.5 20.5C8.45 20.5 10.55 20.9 12 22C13.35 21.15 15.8 20.5 17.5 20.5C19.15 20.5 20.85 20.81 22.25 21.56C22.35 21.61 22.4 21.59 22.5 21.59C22.75 21.59 23 21.34 23 21.09V6.5C22.4 6.05 21.75 5.75 21 5.5V19C19.9 18.65 18.7 18.5 17.5 18.5C15.8 18.5 13.35 19.15 12 20V6.5C10.55 5.4 8.45 5 6.5 5Z");
 }
 
+.container:hover > input[type="checkbox"] + svg,
+form input:focus + svg,
+form input:hover + svg,
+form input:focus,
+form input:focus,
+.blank.container:hover > svg,
+.blank.container:hover > p,
+.blank.container:hover > h2,
+.blank.container:hover > h3,
+button:focus svg,
+button:hover svg {
+  outline: none;
+  transition: all 100ms ease-in;
+  border-color: var(--dark-color);
+  color: var(--dark-color) !important;
+  fill: var(--dark-color) !important;
+}
 
+.book.filled .title.container > svg,
+.book.filled .author.container > svg {
+  opacity: 0;
+}
 
+.book.filled:hover .title.container svg
+.book.filled:hover .author.container svg {
+  opacity: 1;
+}
+
+.book.filled .pages.container > p {
+  width: 0;
+  overflow: hidden;
+  opacity: 1;
+  transform-origin: right;
+}
+
+.book.filled:hover .pages.container > p {
+  width: 4ch;
+  opacity: 1;
+  transform-origin: right;
+}
+
+.book.filled:hover .read.data + svg {
+  transition: all 100ms ease;
+  opacity: 1;
+  top: 50%;
+  left: 0%;
+}
+
+.book input[type="checkbox"].read.data:active + svg {
+  transition:  all 100ms ease-in;
+  scale: 0 1;
+  translate: -1em 0;
+}
+
+.book input[type="checkbox"].read.data:checked:active + svg {
+  transition: all 100ms ease-in;
+  translate: 1em 0;
+  scale: 0 1.1;
+}

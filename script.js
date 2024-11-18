@@ -2,10 +2,25 @@
 const bookTemplate = initBookTemplate();
 const formTemplate = initFormTemplate();
 const libraryTemplate = initLibraryTemplate();
-const library = [];
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 
-addBookAndUpdate(theHobbit);
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
+const snowCrash = new Book('Snow Crash', 'Neal Stephenson', 480, false);
+const sevenEves = new Book('Seveneves', 'Neal Stephenson', 880, true);
+const sirensOfTiten = new Book('Sirens of Titan', 'Kurt Vonnegut', 319, true);
+
+const wombology = new Book('Wumbology: The study of wumbo', 'Patrick Star', 880, true);
+const prime = new Book('The name is:', 'The Primeagen', 295, false);
+const homer = new Book('Did I do that?', 'OJ Simpson', 480, false);
+
+
+
+const library = 
+  [
+    theHobbit, snowCrash, sevenEves, sirensOfTiten,
+    wombology, prime, homer,
+  ];
+
+replaceLiveLibrary();
 
 function Book(bookTitle, bookAuthor, numberOfPages, hasRead) {
   this.title = bookTitle;
@@ -17,10 +32,7 @@ function Book(bookTitle, bookAuthor, numberOfPages, hasRead) {
 function initBookTemplate() {
   const template = document.querySelector('#book-template').cloneNode(true);
   template.removeAttribute('id');
-  template.querySelector('button').addEventListener('click', e => {
-    const selectedBook = createBookFromElement(e.target.closest('.book.data'));
-    removeBookAndUpdate(selectedBook);
-  });
+  
   return template;
 }
 
@@ -63,7 +75,7 @@ function addBookToLibrary(book) {
 }
 
 function removeBookFromLibrary(book) {
-  let index = getLibrary().findIndex(b => b === book);
+  let index = getLibrary().findIndex(b => areEqual(b, book));
   getLibrary().splice(index, 1);
 }
 
@@ -86,13 +98,31 @@ function createBookFromForm() {
   return new Book(title, author, pages, read);
 }
 
+function areEqual(book0, book1) {
+  return book0.title === book1.title && 
+  book0.author === book1.author && 
+  book0.pages === book1.pages;
+
+}
+
 function buildBookElement(book) {
   const template = getBookTemplate().cloneNode(true);
   template.querySelector('.title.container .data').textContent = book.title;
   template.querySelector('.author.container .data').textContent = book.author;
   template.querySelector('.pages.container .data').textContent = book.pages;
   if (book.read) template.querySelector('.read.container .data').setAttribute('checked', '');
+  
+  template.querySelector('.remove').addEventListener('click', e => {
+    const selectedBook = createBookFromElement(e.target.closest('.book.data'));
+    removeBookAndUpdate(selectedBook);
+  });
 
+  template.querySelector('.read.container').addEventListener('click', e => {
+    const thisBook = createBookFromElement(e.target.closest('.book.data'));
+    const index = getLibrary().findIndex(b => areEqual(b, thisBook));
+    const readValue = e.target.closest('.read.container').querySelector('.data').checked;
+    getLibrary().at(index).read = readValue;
+  });
   return template;
 }
 
@@ -100,7 +130,7 @@ function createBookFromElement(bookElement) {
   return new Book(
     bookElement.querySelector('.title.container .data').textContent,
     bookElement.querySelector('.author.container .data').textContent,
-    bookElement.querySelector('.pages.container .data').textContent,
+    +bookElement.querySelector('.pages.container .data').textContent,
     bookElement.querySelector('.read.container .data').hasAttribute('checked'));
 }
 
