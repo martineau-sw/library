@@ -2,6 +2,11 @@
 const bookTemplateElement = cloneBookTemplateElement();
 const blankTemplateElement = cloneBlankTemplateElement();
 const libraryElement = selectLibraryElement();
+const ICON_PATH = './resources/icons';
+const read_icons = {
+  read: `${ICON_PATH}/book-open-page-variant.svg`,
+  unread: `${ICON_PATH}/book.svg`
+};
 
 const library = [];
 
@@ -76,6 +81,7 @@ function createElementFromBook(book) {
 }
 
 function createBookFromElement(bookElement) {
+  console.log(bookElement);
   return new Book(
     bookElement.querySelector('.title').textContent,
     bookElement.querySelector('.author').textContent,
@@ -84,7 +90,7 @@ function createBookFromElement(bookElement) {
 }
 
 function clearChildren(element) {
-  while (element.firstChild) {
+  while (element.firstChild && element.firstChild !== getBlankTemplateElement()) {
     element.removeChild(element.firstChild);
   }
 }
@@ -99,10 +105,28 @@ function updateLibraryElement() {
     libraryElement.appendChild(bookElement);
   });
   libraryElement.appendChild(getBlankTemplateElement());
+  attachGetFormOnSubmit();
+
 }
 
 function attachRemoveBookToButton(bookElement) {
   bookElement.querySelector('.remove').addEventListener('click', event => {
-    removeBookAndUpdate(createBookFromElement(event.target.parentNode));
+    removeBookAndUpdate(createBookFromElement(event.target.parentNode.parentNode));
+  });
+}
+
+function attachGetFormOnSubmit() {
+  const form = document.querySelector('form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const newBook = new Book(
+        document.getElementById('input-title').value,
+        document.getElementById('input-author').value,
+        document.getElementById('input-pages').value,
+        !document.getElementById('input-read').value
+    );
+    form.reset();
+    addBookAndUpdate(newBook);
   });
 }
