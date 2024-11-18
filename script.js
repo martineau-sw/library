@@ -98,12 +98,11 @@ function updateLibraryElement() {
     attachRemoveBookToButton(bookElement);
     libraryElement.appendChild(bookElement);
   });
+  libraryElement.appendChild(getBlankTemplateElement());
 }
 
 function attachRemoveBookToButton(bookElement) {
   bookElement.querySelector('.remove').addEventListener('click', event => {
-    console.log(event.target.parentNode);
-
     removeBookAndUpdate(createBookFromElement(event.target.parentNode));
-  })
+  });
 }

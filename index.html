@@ -17,19 +17,42 @@
 </head>
 <body>
   <div id="header" class="section">
-    <h1>Library</h1>
+    <div id="banner">
+      <img src="./resources/icons/bookshelf.svg" alt="library icon" width="32px" height="32px">
+      <h1>Library</h1>
+    </div>
   </div>
   <div id="library" class="sections">
 
     <div id="blank-template" class="book blank">
-      <button class="add">+</button>
+      <label for="input-title">
+        <img src="./resources/icons/alphabetical-variant.svg" alt="title icon" width="32px" height="32px">
+      </label>
+      <input id="input-title" type="text" placeholder="title" required>
+      <label for="input-author">
+        <img src="./resources/icons/lead-pencil.svg" alt="author icon" width="32px" height="32px">
+      </label>
+      <input id="input-author" type="text" placeholder="author" required>
+      <label for="input-pages">
+        <img src="./resources/icons/pound.svg" alt="number of pages icon" width="32px" height="32px">
+      </label>
+      <input id="input-pages" type="number" placeholder="pages" required>
+      <label for="input-read">
+        <img src="./resources/icons/book-open-page-variant.svg" alt="read icon" width="32px" height="32px">
+      </label>
+      <input id="input-read" type="checkbox">
+      <button class="add">
+        <img src="./resources/icons/bookmark-plus.svg" alt="add book icon" width="32px" height="32px">
+      </button>
     </div>
 
     <div id="book-template" class="book">
       <h2 class="title">Book Title</h2>
       <h3 class="author">author</h3>
       <p class="pages">000</p>
-      <button class="remove">-</button>
+      <button class="remove">
+        <img src="./resources/icons/bookmark-remove-outline.svg" alt="remove book icon" width="32px" height="32px">
+      </button>
       <input class="read" type="checkbox">
     </div>
 
