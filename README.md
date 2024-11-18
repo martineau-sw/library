@@ -47,12 +47,12 @@ Library project as part of The Odin Project curriculum
   - [x] Roboto font
 
 - [x] Create `script.js`
-	- [ ] Add book constructor and book array
-	- [ ] Add function to add book to array
-	- [ ] Add function to remove book
-	- [ ] Add function to toggle read
-	- [ ] Create book DOM node
-		- [ ] Potential approach: template in HTML, store in JS,  remove from DOM, append to DOM on function call
+	- [x] Add book constructor and book array
+	- [x] Add function to add book to array
+	- [x] Add function to remove book
+	- [x] Add function to toggle read
+	- [x] Create book DOM node
+		- [x] Potential approach: template in HTML, store in JS,  remove from DOM, append to DOM on function call
 		- [ ] Potential approach: structure using document methods, wrap as object, append to DOM on function call
 	- [ ] Research and decide on method to process user input
 		- [ ] Potential approach: form, figure out how to accept form without HTTP
