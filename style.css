@@ -150,6 +150,12 @@ h1, h2, h3, h4 {
   scale: 1.025;
 }
 
+.book:focus > *,
+.book:hover > * {
+  border: 0 solid transparent;
+  scale: 1.025;
+}
+
 .book:hover h2,
 .book:hover h3 {
   text-overflow: unset;
@@ -330,8 +336,6 @@ button:hover svg {
 .book.filled:hover .read.data + svg {
   transition: all 100ms ease;
   opacity: 1;
-  top: 50%;
-  left: 0%;
 }
 
 .book input[type="checkbox"].read.data:active + svg {
